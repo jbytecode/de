@@ -5,7 +5,6 @@ import 'package:pso/pso.dart';
 
 class DE {
   List<Solution> _solutions;
-  List<double> _mins, _maxs;
   double _cr;
   double _F;
   FitnessFunctionType _fitnessFunctionType;
@@ -14,10 +13,8 @@ class DE {
   DE(FitnessFunctionType fitnessFunctionType, List<double> mins,
       List<double> maxs,
       {int popsize = 100, double cr = 0.80, double F = 1}) {
-    _random = new Random();
+    _random = Random();
     _solutions = List<Solution>(popsize);
-    _mins = mins;
-    _maxs = maxs;
     _cr = cr;
     _F = F;
     _fitnessFunctionType = fitnessFunctionType;
@@ -63,7 +60,7 @@ class DE {
 
   void iterate() {
     calculateFitnessForAll();
-    List<Solution> newpop = new List<Solution>();
+    List<Solution> newpop = List<Solution>();
     for (int i = 0; i < _solutions.length; i++) {
       Solution currentSolution = _solutions[i];
       if (_random.nextDouble() > _cr) {

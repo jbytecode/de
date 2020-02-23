@@ -64,7 +64,7 @@ void main() {
       de.iterateN(10000);
       de.calculateFitnessForAll();
       Solution best = de.getBest();
-      expect(best.getValues()[0].toString().startsWith("5."), true);
+      expect(best.getValues()[0].toString().startsWith('5.'), true);
     });
   });
 }

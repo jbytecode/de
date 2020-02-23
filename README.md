@@ -38,4 +38,4 @@ objective function can be multiplied by -1.0.
 
 * The default parameters of the classical Differential Evolution Optimization
 are set to cr = 0.8 and F = 1.0. These optimization parameters can be customized
-in the
+in the constructor of DE class.

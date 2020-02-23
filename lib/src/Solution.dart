@@ -38,7 +38,7 @@ class Solution {
     return _values;
   }
 
-  List<double> setValues(List<double> values) {
+  void setValues(List<double> values) {
     _values = values;
   }
 
