@@ -1,0 +1,15 @@
+name: de
+description: Differential Evolution Optimization tool for Dart. The implementation supposes the objective function is a maximation and optimization parameters are customizable.
+version: 1.0.2
+homepage: http://www.matletik.com
+author: Matletik - Mathematical Manipulatives and Interactive Learning Tools
+
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+
+dependencies:
+  pso: ^1.0.1
+
+dev_dependencies:
+  pedantic: ^1.8.0
+  test: ^1.6.0
