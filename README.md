@@ -1,3 +1,5 @@
+![Dart CI](https://github.com/jbytecode/de/workflows/Dart%20CI/badge.svg)
+
 A Library for Differential Evolution Optimization
 
 Created by Matletik - Mathematical Manipulatives and Interactive Learning Tools
