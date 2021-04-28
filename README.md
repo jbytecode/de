@@ -2,9 +2,6 @@
 
 A Library for Differential Evolution Optimization
 
-Created by Matletik - Mathematical Manipulatives and Interactive Learning Tools
-
-http://www.matletik.com
 
 ## Usage
 
