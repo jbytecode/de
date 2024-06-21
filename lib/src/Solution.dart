@@ -2,12 +2,12 @@ import 'dart:math';
 import 'package:pso/pso.dart';
 
 class Solution {
-  FitnessFunctionType _fitnessFunctionType;
-  List<double> _mins, _maxs, _values;
-  double _fitness;
+  late FitnessFunctionType _fitnessFunctionType;
+  late List<double> _mins, _maxs, _values;
+  late double _fitness;
 
   Solution deepCopy() {
-    Solution news = Solution(_fitnessFunctionType, _mins.length, _mins, _maxs);
+    var news = Solution(_fitnessFunctionType, _mins.length, _mins, _maxs);
     news.setValues(List.of(_values));
     news.setFitness(_fitness);
     return news;
@@ -15,12 +15,12 @@ class Solution {
 
   Solution(FitnessFunctionType fitnessFunctionType, int p, List<double> mins,
       List<double> maxs) {
-    Random random = Random();
+    var random = Random();
     _fitnessFunctionType = fitnessFunctionType;
     _mins = mins;
     _maxs = maxs;
-    _values = List<double>(p);
-    for (int i = 0; i < p; i++) {
+    _values = List<double>.filled(p, 0.0);
+    for (var i = 0; i < p; i++) {
       _values[i] = _mins[i] + ((_maxs[i] - _mins[i]) * random.nextDouble());
     }
     _fitness = double.negativeInfinity;

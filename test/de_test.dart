@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:de/de.dart';
-import 'package:de/src/Solution.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,8 +12,8 @@ void main() {
         return 0;
       }
 
-      DE de = DE(f, [0, 0, 0], [1, 1, 1]);
-      List<int> result = de.getRandom3IndexExceptOne(10, 20, 15);
+      var de = DE(f, [0, 0, 0], [1, 1, 1]);
+      var result = de.getRandom3IndexExceptOne(10, 20, 15);
       expect(result.length, 3);
       expect(result.contains(15), false);
 
@@ -29,19 +28,20 @@ void main() {
 
     test('Min f(x,y) = (x-pi)^2 + (y-e)^2', () {
       double f(List<double> x) {
-        return -(pow(x[0] - 3.14159265, 2.0) + pow(x[1] - exp(1.0), 2.0));
+        return -(pow(x[0] - 3.14159265, 2.0) + pow(x[1] - exp(1.0), 2.0))
+            as double;
       }
 
-      DE de = DE(f, [-500, -500], [500, 500], cr: 0.99, F: 1.20, popsize: 300);
+      var de = DE(f, [-500, -500], [500, 500], cr: 0.99, F: 1.20, popsize: 300);
       de.iterateN(5000);
-      Solution best = de.getBest();
+      var best = de.getBest();
       print(best);
       expect(best.getFitness() > -0.05, true);
     });
 
     test('median', () {
       double f(List<double> x) {
-        List<double> vals = [
+        var vals = <double>[
           1.0,
           2.0,
           3.0,
@@ -53,17 +53,17 @@ void main() {
           900.0,
           100.0
         ];
-        double s = 0.0;
-        for (int i = 0; i < vals.length; i++) {
+        var s = 0.0;
+        for (var i = 0; i < vals.length; i++) {
           s += (vals[i] - x[0]).abs().toDouble();
         }
         return -s;
       }
 
-      DE de = DE(f, [-100.0], [100.0], cr: 0.99, F: 1.50, popsize: 300);
+      var de = DE(f, [-100.0], [100.0], cr: 0.99, F: 1.50, popsize: 300);
       de.iterateN(10000);
       de.calculateFitnessForAll();
-      Solution best = de.getBest();
+      var best = de.getBest();
       expect(best.getValues()[0].toString().startsWith('5.'), true);
     });
   });

@@ -4,29 +4,32 @@ import 'package:de/src/Solution.dart';
 import 'package:pso/pso.dart';
 
 class DE {
-  List<Solution> _solutions;
-  double _cr;
-  double _F;
-  FitnessFunctionType _fitnessFunctionType;
-  Random _random;
+  late List<Solution> _solutions;
+  late double _cr;
+  late double _F;
+  late FitnessFunctionType _fitnessFunctionType;
+  late Random _random;
 
   DE(FitnessFunctionType fitnessFunctionType, List<double> mins,
       List<double> maxs,
       {int popsize = 100, double cr = 0.80, double F = 1}) {
     _random = Random();
-    _solutions = List<Solution>(popsize);
+    //_solutions = List<Solution>(popsize);
+    _solutions = List<Solution>.generate(popsize, (index) {
+      return Solution(fitnessFunctionType, mins.length, mins, maxs);
+    });
     _cr = cr;
     _F = F;
     _fitnessFunctionType = fitnessFunctionType;
-    for (int i = 0; i < popsize; i++) {
+    for (var i = 0; i < popsize; i++) {
       _solutions[i] = Solution(fitnessFunctionType, mins.length, mins, maxs);
     }
   }
 
   List<int> getRandom3IndexExceptOne(int Min, int Max, int except) {
-    List<int> indices = List<int>();
+    var indices = List<int>.empty(growable: true);
     while (indices.length < 3) {
-      int luckyIndex = Min + _random.nextInt(Max - Min);
+      var luckyIndex = Min + _random.nextInt(Max - Min);
       if (luckyIndex != except) {
         if (!indices.contains(luckyIndex)) {
           indices.add(luckyIndex);
@@ -43,8 +46,8 @@ class DE {
   }
 
   Solution getBest() {
-    Solution best = _solutions[0];
-    for (int i = 1; i < _solutions.length; i++) {
+    var best = _solutions[0];
+    for (var i = 1; i < _solutions.length; i++) {
       if (_solutions[i].getFitness() > best.getFitness()) {
         best = _solutions[i];
       }
@@ -53,29 +56,29 @@ class DE {
   }
 
   void iterateN(int n) {
-    for (int i = 0; i < n; i++) {
+    for (var i = 0; i < n; i++) {
       iterate();
     }
   }
 
   void iterate() {
     calculateFitnessForAll();
-    List<Solution> newpop = List<Solution>();
-    for (int i = 0; i < _solutions.length; i++) {
-      Solution currentSolution = _solutions[i];
+    var newpop = List<Solution>.empty(growable: true);
+    for (var i = 0; i < _solutions.length; i++) {
+      var currentSolution = _solutions[i];
       if (_random.nextDouble() > _cr) {
         newpop.add(currentSolution);
       } else {
-        List<int> indices =
+        var indices =
             getRandom3IndexExceptOne(0, _solutions.length - 1, i);
-        List<double> A = _solutions[indices[0]].getValues();
-        List<double> B = _solutions[indices[1]].getValues();
-        List<double> C = _solutions[indices[2]].getValues();
-        List<double> Y =
+        var A = _solutions[indices[0]].getValues();
+        var B = _solutions[indices[1]].getValues();
+        var C = _solutions[indices[2]].getValues();
+        var Y =
             Vector.Sum(A, Vector.ProdWithScaler(Vector.Sum(B, C), _F));
-        double candidateFitness = _fitnessFunctionType(Y);
+        var candidateFitness = _fitnessFunctionType(Y);
         if (candidateFitness > currentSolution.getFitness()) {
-          Solution news = currentSolution.deepCopy();
+          var news = currentSolution.deepCopy();
           news.setValues(Y);
           news.setFitness(candidateFitness);
           newpop.add(news);

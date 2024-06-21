@@ -1,8 +1,7 @@
 import 'package:de/de.dart';
-import 'package:de/src/Solution.dart';
 
 void main() {
-  List<double> vals = [
+  var vals = <double>[
     1.0,
     2.0,
     3.0,
@@ -15,17 +14,17 @@ void main() {
     100.0
   ];
   double f(List<double> x) {
-    double s = 0.0;
-    for (int i = 0; i < vals.length; i++) {
+    var s = 0.0;
+    for (var i = 0; i < vals.length; i++) {
       s += (vals[i] - x[0]).abs().toDouble();
     }
     return -s;
   }
 
-  DE de = DE(f, [-100.0], [100.0], cr: 0.99, F: 1.50, popsize: 300);
+  var de = DE(f, [-100.0], [100.0], cr: 0.99, F: 1.50, popsize: 300);
   de.iterateN(10000);
   de.calculateFitnessForAll();
-  Solution best = de.getBest();
+  var best = de.getBest();
 
   print(best);
 }
